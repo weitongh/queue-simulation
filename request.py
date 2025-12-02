@@ -198,6 +198,12 @@ class Request(QGraphicsObject):
         if request_right >= queue_left:
             self._has_checked_queue = True
             queue = self.target_queue
+
+            # Check if request was successfully added to queue at spawn time, which allows
+            # consistent animation speed from spawn position to the final queue slot.
+            # Note: The acceptance decision is made when move_to_queue() is called, not when
+            # the request visually reaches the queue. If the queue was full at spawn time,
+            # the request will be dropped here even if a slot opens up during travel.
             is_in_queue = any(req is self for _, req in queue.queue)
             if not is_in_queue:
                 self._drop(blocking_obj=queue)
