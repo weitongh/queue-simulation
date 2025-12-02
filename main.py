@@ -67,6 +67,12 @@ class MainWindow(QMainWindow):
         self.remove_queue_btn.setDisabled(True)
         self.remove_queue_btn.clicked.connect(self.remove_queue)
 
+        # Toggle priority client button
+        self.toggle_priority_client_btn = QPushButton("Show Priority Client")
+        self.toggle_priority_client_btn.setFixedWidth(180)
+        self.toggle_priority_client_btn.setCheckable(True)
+        self.toggle_priority_client_btn.clicked.connect(self.toggle_priority_client)
+
         # Play/Pause button
         self.play_btn = QPushButton("Auto Send")
         self.play_btn.setFixedWidth(100)
@@ -86,6 +92,7 @@ class MainWindow(QMainWindow):
 
         hbox_layout.addWidget(self.add_queue_btn)
         hbox_layout.addWidget(self.remove_queue_btn)
+        hbox_layout.addWidget(self.toggle_priority_client_btn)
         hbox_layout.addWidget(self.play_btn)
         hbox_layout.addWidget(slider_label)
         hbox_layout.addWidget(self.speed_slider)
@@ -130,6 +137,15 @@ class MainWindow(QMainWindow):
         if reach_min_queue_num:
             self.remove_queue_btn.setDisabled(True)
         self.add_queue_btn.setEnabled(True)
+
+    def toggle_priority_client(self):
+        """Toggle visibility of the priority client."""
+        if self.toggle_priority_client_btn.isChecked():
+            self.view.show_priority_client()
+            self.toggle_priority_client_btn.setText("Hide Priority Client")
+        else:
+            self.view.hide_priority_client()
+            self.toggle_priority_client_btn.setText("Show Priority Client")
 
     def toggle_play(self):
         """Toggle auto-sending requests on/off."""

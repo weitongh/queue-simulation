@@ -48,7 +48,6 @@ class View(QGraphicsView):
         """Add initially visible items to the scene."""
         scene = self.scene()
         scene.addItem(self.client)
-        scene.addItem(self.priority_client)
         scene.addItem(self.server_center)
 
     def _create_row(self, row_y):
@@ -104,3 +103,13 @@ class View(QGraphicsView):
 
         reach_min_queue_num = self._queue_num == 0
         return reach_min_queue_num
+
+    def show_priority_client(self):
+        """Add the priority client to the scene."""
+        scene = self.scene()
+        scene.addItem(self.priority_client)
+
+    def hide_priority_client(self):
+        """Remove the priority client from the scene."""
+        scene = self.scene()
+        scene.removeItem(self.priority_client)
