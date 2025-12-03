@@ -78,25 +78,25 @@ class MainWindow(QMainWindow):
         self.play_btn.setFixedWidth(100)
         self.play_btn.clicked.connect(self.toggle_play)
 
-        # Speed slider
-        slider_label = QLabel("Speed:")
-        self.speed_label = QLabel("1500 ms/request")
-        self.speed_label.setFixedWidth(150)
+        # Interval slider
+        slider_label = QLabel("Interval:")
+        self.interval_label = QLabel("1500 ms/request")
+        self.interval_label.setFixedWidth(150)
 
-        self.speed_slider = QSlider(Qt.Horizontal)
-        self.speed_slider.setMinimum(100)
-        self.speed_slider.setMaximum(1500)
-        self.speed_slider.setValue(1500)
-        self.speed_slider.setFixedWidth(200)
-        self.speed_slider.valueChanged.connect(self._update_speed_label)
+        self.interval_slider = QSlider(Qt.Horizontal)
+        self.interval_slider.setMinimum(100)
+        self.interval_slider.setMaximum(1500)
+        self.interval_slider.setValue(1500)
+        self.interval_slider.setFixedWidth(200)
+        self.interval_slider.valueChanged.connect(self._update_interval_label)
 
         hbox_layout.addWidget(self.add_queue_btn)
         hbox_layout.addWidget(self.remove_queue_btn)
         hbox_layout.addWidget(self.toggle_priority_client_btn)
         hbox_layout.addWidget(self.play_btn)
         hbox_layout.addWidget(slider_label)
-        hbox_layout.addWidget(self.speed_slider)
-        hbox_layout.addWidget(self.speed_label)
+        hbox_layout.addWidget(self.interval_slider)
+        hbox_layout.addWidget(self.interval_label)
         hbox_layout.addStretch()
 
         return hbox_layout
@@ -167,13 +167,13 @@ class MainWindow(QMainWindow):
             self.play_btn.setText("Stop")
             self.is_playing = True
 
-    def _update_speed_label(self, value):
+    def _update_interval_label(self, value):
         """Update the timer interval and label display."""
-        self.speed_label.setText(f"{value} ms/request")
+        self.interval_label.setText(f"{value} ms/request")
 
     def _check_last_send_time(self):
         """Check if enough time has elapsed and send request."""
-        interval_ms = self.speed_slider.value()
+        interval_ms = self.interval_slider.value()
         if self.last_send_timer.elapsed() >= interval_ms:
             self._auto_send_request()
             self.last_send_timer.restart()
