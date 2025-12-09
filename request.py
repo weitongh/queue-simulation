@@ -45,6 +45,10 @@ class Request(QGraphicsObject):
         self.target_server = None
         self.target_queue = None
 
+        # Initialize queue position attributes
+        self.end_x_in_queue = None
+        self.end_y_in_queue = None
+
         # Animation state
         self._move_anim = None
         self._has_checked_queue = False
@@ -103,7 +107,8 @@ class Request(QGraphicsObject):
         """
         self.target_server = server
 
-        server.paired_queue.can_bypass = False
+        if server.paired_queue:
+            server.paired_queue.can_bypass = False
 
         server_center_x = server.scenePos().x() + server._rect.width() / 2
         end_x = server_center_x - self._rect.width() / 2
@@ -138,6 +143,8 @@ class Request(QGraphicsObject):
 
     def move_forward(self):
         """Move this request in queue one slot forward."""
+        if self.end_x_in_queue or self.end_y_in_queue is None:
+            return
         self.end_x_in_queue += self._rect.width() + 10
         end_x = self.end_x_in_queue
         end_y = self.end_y_in_queue
@@ -145,6 +152,8 @@ class Request(QGraphicsObject):
 
     def move_backward(self):
         """Move this request in queue one slot backward."""
+        if self.end_x_in_queue or self.end_y_in_queue is None:
+            return
         self.end_x_in_queue -= self._rect.width() + 10
         end_x = self.end_x_in_queue
         end_y = self.end_y_in_queue

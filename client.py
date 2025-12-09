@@ -86,7 +86,7 @@ class Client(QGraphicsObject):
         self.scene().addItem(request)
 
         # Connect to dropped signal if main window exists
-        if hasattr(self.scene().views()[0], 'window'):
+        if self.scene().views() and (self.scene().views()[0], 'window'):
             main_window = self.scene().views()[0].window()
             if hasattr(main_window, '_on_request_dropped'):
                 request.dropped.connect(main_window._on_request_dropped)
