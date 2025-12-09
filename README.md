@@ -2,6 +2,10 @@
 
 An educational, visual simulation of queueing systems built with PySide6. This application demonstrates how queues handle requests to servers and prevent request drops during peak load.
 
+## Demo
+
+**[Watch the demo video](https://drive.google.com/file/d/1sA-bJp9EbckaV7vQHnoHIX3yMexv5T3S/view?usp=sharing)**
+
 ## Prerequisites
 
 - Python 3.8 or higher
